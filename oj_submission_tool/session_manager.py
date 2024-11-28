@@ -1,9 +1,10 @@
 import requests
 from requests.exceptions import RequestException
 
-logged_in = False
-current_oj = None
 class OJSessionManager:
+    logged_in = False
+    current_oj = None
+    oj_name = "codeforces"
     def __init__(self):
         self.session = requests.Session()
         self.logged_in = False
@@ -34,7 +35,7 @@ class OJSessionManager:
         :param password: 密码
         :return: 登录是否成功
         """
-        login_url = "https://codeforces.comenter"
+        login_url = "https://codeforces.com/enter"
         payload = {
             'handleOrEmail': username,
             'password': password,
@@ -109,7 +110,7 @@ class OJSessionManager:
             self.oj_url = None
             print("登出成功！")
         except RequestException as e:
-            print(f"登出失败：{e}")
+            print("登出失败：{e}")
 
     def is_logged_in(self):
         """
@@ -117,17 +118,9 @@ class OJSessionManager:
         """
         return self.logged_in
 
+oj_session = OJSessionManager()
 
 def login():
-    global logged_in
-    logged_in = True
-    # 实现登录逻辑
-
-def logout():
-    global logged_in
-    logged_in = False
-    # 实现登出逻辑
-
-def set_oj(oj_name):
-    global current_oj
-    current_oj = oj_name
+    username = input()
+    password = input()
+    oj_session.login(OJSessionManager.oj_name, username, password)

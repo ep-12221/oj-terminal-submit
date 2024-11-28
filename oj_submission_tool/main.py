@@ -2,7 +2,7 @@ import click
 import os
 from submission.submitter import submit_code
 from problem.fetcher import fetch_problem
-from session_manager import login, logout, set_oj
+from session_manager import OJSessionManager
 
 # 存储当前OJ设置和登录状态的全局变量
 current_oj = None
@@ -65,7 +65,7 @@ def login():
         print("您已经登录！")
         return
     
-    login()
+    
     logged_in = True
     print("登录成功！")
 
@@ -77,7 +77,7 @@ def logout():
         print("您没有登录！")
         return
 
-    logout()
+    OJSessionManager.logout()
     logged_in = False
     print("登出成功！")
 
